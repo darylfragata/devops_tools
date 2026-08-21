@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Shim so `tfclean` works as a bare command once tools/ is on PATH.
+dir="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
+exec "$dir/tfclean.sh" "$@"
