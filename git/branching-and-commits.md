@@ -1,6 +1,10 @@
 # Git Branch & Commit Guidelines
 
 > Cheat sheet for when you forget what to name a branch or how to write a commit. Look it up until it's muscle memory.
+>
+> For merge strategies, conflict resolution, cleaning up commits, and the full PR flow, see [`merging-and-pull-requests.md`](merging-and-pull-requests.md).
+
+https://git-scm.com/cheat-sheet
 
 ## Step 1: What am I doing? → Branch name
 
