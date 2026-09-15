@@ -13,7 +13,7 @@
 set -euo pipefail
 
 tools_dir="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
-marker="# devops-cheatsheet tools"
+marker="# devops_tools tools"
 line="export PATH=\"\$PATH:$tools_dir\""
 
 chmod +x "$tools_dir/tfclean" "$tools_dir/tfclean.sh" 2>/dev/null || true

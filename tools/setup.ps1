@@ -17,7 +17,7 @@
 param()
 
 $toolsPath = $PSScriptRoot
-$marker = "# devops-cheatsheet tools"
+$marker = "# devops_tools tools"
 
 if (-not (Test-Path -Path $PROFILE)) {
     New-Item -ItemType File -Path $PROFILE -Force | Out-Null
