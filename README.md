@@ -10,4 +10,5 @@ A personal DevOps cheatsheet and toolkit, focused on productivity: quick-referen
 ## Tools
 
 - [`tools/`](tools) - Personal scripts (e.g. `tfclean`)
+- [`claude-code-statusline/`](claude-code-statusline) - Claude Code status line: usage limits + reset timers, context, session time, git branch
 - [`work-task-tracker/`](work-task-tracker) - Excel task tracker for a workplace with no ticketing system
