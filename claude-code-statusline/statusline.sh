@@ -28,9 +28,9 @@ reset_in() { # epoch seconds or ISO string -> " ↻2h13m"; empty if unparseable/
   (( t > 20000000000 )) && t=$(( t / 1000 ))
   s=$(( t - $(date +%s) )); (( s <= 0 )) && return
   d=$(( s / 86400 ))
-  if (( d > 0 )); then printf ' ↻%dd%dh' "$d" $(( s % 86400 / 3600 ))
-  elif (( s >= 3600 )); then printf ' ↻%dh%02dm' $(( s / 3600 )) $(( s % 3600 / 60 ))
-  else printf ' ↻%dm' $(( s / 60 )); fi
+  if (( d > 0 )); then printf ' ↻ %dd%dh' "$d" $(( s % 86400 / 3600 ))
+  elif (( s >= 3600 )); then printf ' ↻ %dh%02dm' $(( s / 3600 )) $(( s % 3600 / 60 ))
+  else printf ' ↻ %dm' $(( s / 60 )); fi
 }
 
 fmt_dur() { # ms -> 47m / 2h05m

@@ -5,7 +5,7 @@ limits, context, session time, and git branch under the prompt, so I don't have
 to run `/usage` or guess how close I am to a limit.
 
 ```
-Sonnet 5 │ ⏱ 47m │ ctx ████████░░ 88% ⚠ /compact │ sess $1.20 │ today $3.50 │ month $37.10 │ 5h ██████░░░░ 63% ↻2h13m │ 7d █████████░ 91% ↻2d5h
+Sonnet 5 │ ⏱ 47m │ ctx ████████░░ 88% ⚠ /compact │ sess $1.20 │ today $3.50 │ month $37.10 │ 5h ██████░░░░ 63% ↻ 2h13m │ 7d █████████░ 91% ↻ 2d5h
 dfOS main*
 ```
 
