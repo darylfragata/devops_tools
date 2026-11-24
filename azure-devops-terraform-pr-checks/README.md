@@ -18,6 +18,26 @@ Derived from a setup I built and ran in my own homelab Azure DevOps organization
 - No cloud credentials: `-backend=false` never touches state, and `validate` never reads tfvars or calls a provider API.
 - Only stacks with an added or modified `.tf` file are checked. A file under a stack's `modules/` folder counts as that stack.
 
+## Manual setup at a glance
+
+Everything except the two files is set up by hand in the Azure DevOps portal. If you don't have the rights below, these steps go to whoever does (usually a Project Administrator).
+
+| # | Where | What | Rights needed |
+| --- | --- | --- | --- |
+| 1 | Pipelines → New pipeline | Register the YAML, rename it | Create pipelines in the project |
+| 2 | Repos → Branches → target branch → Branch policies → Build Validation | Add the pipeline as **Required** | Edit policies |
+| 3 | Project settings → Repositories → Policies → Add branch protection | Same policy on a pattern such as `release/*` (only if you use one) | Edit policies |
+| 4 | Branch policies → Minimum number of reviewers | Make sure one exists (also what blocks direct pushes) | Edit policies |
+| 5 | Project settings → Repositories → repo → Security | Bypass on complete for a small group; bypass on push for nobody | Manage permissions |
+
+**Check first:**
+
+- A Microsoft-hosted parallel job, or a self-hosted pool you may use. The first run may ask you to **Permit** the pipeline to use the pool.
+- Self-hosted agents: network access to `apt.releases.hashicorp.com` and `registry.terraform.io` (or Terraform pre-installed and a provider mirror).
+- Private modules in other Azure Repos: the project Build Service needs Read on those repos. If the org has **"Limit job authorization scope to referenced Azure DevOps repositories"** on, a module repo not declared in the YAML may fail to fetch (not tested).
+
+**Not needed for validate only:** AWS or other cloud credentials, a service connection, a variable group, or extra Build Service permissions on the Terraform repo itself. Those only come in with plans (see "Later, if needed").
+
 ## Checklist
 
 ### 1. Decide before copying
