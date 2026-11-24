@@ -48,7 +48,7 @@ Derived from a setup I built and ran in my own homelab Azure DevOps organization
   - Policy requirement: **Required**
   - Build expiration: **Immediately when the target branch is updated**
   - Display name: e.g. `Terraform validate`
-  - Path filter (optional): an exclusion filter so docs-only or pipeline-only PRs don't queue it, e.g. `!/docs/*; !/pipelines/*; !*.md`
+  - Path filter (optional): include everything, then exclude what shouldn't queue it, e.g. `/*; !/docs/*; !/pipelines/*; !/README.md`. Start with `/*` and begin every path with `/` (this is the form my homelab policy uses).
 - [ ] For a branch pattern such as `release/*`: Project settings → Repositories → Policies → **Add branch protection** → pattern `release/*`, then the same Build Validation settings. This covers branches that don't exist yet.
 - [ ] Make sure a **minimum reviewers** (or other required) policy exists too. A required policy is also what makes a direct `git push` to the branch get rejected.
 
