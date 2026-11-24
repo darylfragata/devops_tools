@@ -6,6 +6,7 @@ A personal DevOps cheatsheet and toolkit, focused on productivity: quick-referen
 
 - [`git/`](git) - Git guidelines, merging strategies, and pull request workflow
 - [`terraform/`](terraform) - Terraform command reference and HCL expression/conditional logic
+- [`azure-devops-terraform-pr-checks/`](azure-devops-terraform-pr-checks) - Checklist and starter files for running `terraform fmt`/`init`/`validate` on every Azure Repos PR
 
 ## Tools
 

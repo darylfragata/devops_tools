@@ -1,0 +1,39 @@
+# PR check for a Terraform repo in Azure Repos: fmt, init -backend=false and
+# validate on every stack folder the PR touches (see validate_terraform.sh).
+#
+# Put this file and validate_terraform.sh in the Terraform repo, e.g. under
+# pipelines/. Register it as a pipeline, then add it as a Required Build
+# Validation branch policy on the branches PRs target. The branch policy is
+# what runs it on every PR: for Azure Repos the pr: trigger below is ignored.
+
+trigger: none
+pr: none
+
+pool:
+  vmImage: ubuntu-latest # or your self-hosted pool: pool: { name: <POOL_NAME> }
+
+variables:
+  STACK_DEPTH: 2 # leading path parts that name a stack folder (0 = each file's own folder)
+
+steps:
+  - checkout: self
+    fetchDepth: 0 # the diff needs the target branch's history
+    clean: true
+    # persistCredentials: true # uncomment if modules come from private Azure Repos over https
+
+  - script: |
+      if command -v terraform >/dev/null 2>&1; then
+        echo "terraform already present: $(command -v terraform)"; exit 0
+      fi
+      wget -qO- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg >/dev/null
+      echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" \
+        | sudo tee /etc/apt/sources.list.d/hashicorp.list >/dev/null
+      sudo apt-get update -qq && sudo apt-get install -y -qq terraform
+      # To pin a version instead: sudo apt-get install -y terraform=<VERSION>-1
+    displayName: Install terraform
+
+  - script: bash pipelines/validate_terraform.sh # adjust the path to where you put the script
+    displayName: Validate touched Terraform stacks
+    env:
+      SYSTEM_PULLREQUEST_TARGETBRANCH: $(System.PullRequest.TargetBranch)
+      STACK_DEPTH: $(STACK_DEPTH)
